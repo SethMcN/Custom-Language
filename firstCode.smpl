@@ -1,0 +1,14 @@
+say_my_name (4+6)
+say_my_name (calc(4+6))
+
+calc (35+65*2)
+calc (10+30)
+calc (100*100)
+calc (20+30*2/4)
+calc ((20+50)+(40-10))
+
+
+arr testVar int be = calc(5+45)
+
+say_my_name (" "hellop" ousdhf ")
+say_my_name ("Hello world")
