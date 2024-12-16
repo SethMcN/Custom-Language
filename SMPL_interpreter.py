@@ -12,13 +12,14 @@ class evaluate:
 
     def getData(self, line):
         try:
+            open = None
             for i in range(len(line)):
-                if line[i] == "(":
+                if line[i] == "(" and open == None:
                     open = i
 
                 elif line[i] == ")":
                     close = i
-                    break
+                    
 
             return line[open+1:close]
 
@@ -110,6 +111,10 @@ class evaluate:
             equation = data[open+1:close]
 
             equation = list(equation)
+
+            for index,variable,data in enumerate(self.variablesDict.items()):
+                if variable in equation:
+                    equation = equation[](variable, self.variablesDict[variable][1])
 
         except:
             equation = data
