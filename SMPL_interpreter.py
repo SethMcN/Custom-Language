@@ -8,93 +8,91 @@ class evaluate:
             if line == "":
                 continue
             self.EvaluateLine(line)
-    
-    def EvaluateLine(self, line):
-        command = line.split(" ")[0]
-
-        for char in range(len(line)):
-
-            if line[char] == "(":
-                open = char
-
-            elif line[char] == ")":
-                close = char
-                break
-
+    def getData(self, line):
         try:
-            data = line[open:close]
+            for i in range(len(line)):
+                if line[i] == "(":
+                    open = i
+
+                elif line[i] == ")":
+                    close = i
+
+                    break
+            return line[open+1:close]
 
         except:
-            print(f"error no brackets on line {line}")
+            print(f"error no brackets on data {data}")      
+
+
+    def EvaluateLine(self, line):
+        command = line.split(" ")[0]
+        if command == "BTW":
+            return None 
 
         if command == "say_my_name":
-            
+            data = self.getData(line)
             self.say_my_name(data)
         
         elif command == "calc":
+            data = self.getData(line)
             self.calcFunc(data)
         
         elif command == "arr":
-            self.variableAssignments(data)
+            self.variableAssignments(line)
 
     def variableAssignments(self, data):
 
-        line = line.split(" ")
-        variable = line[1]
-        dataType = line[2]
-        operation = line[5]
+        data = data.split(" ")
+        variable = data[1]
+        dataType = data[2]
+        operation = data[5]
 
         if "calc" in operation:
-            value = self.calcFunc(line[5])
+            value = self.calcFunc(data[5])
+        
+        else:
+            value = data[5]
 
         self.variablesDict[variable] = [dataType,value]
 
 
     def say_my_name(self, data):
             string = False
-            for char in range(len(line)):
-                if "\"" in line:
-                    string = True 
-
-                if line[char] == "(":
-                    open = char
-                elif line[char] == ")":
-                    close = char
-                    break
+            if "\"" in data:
+                string = True
 
             if string:
-                output = line[open+2:close-1]
+                output = str(data)
             
             else:
-                output = line[open+1:close]
+                output = str(data)
                 #check for variable
-                print(f"Output = {output}")
 
                 try:
-                    output = self.variablesDict[output]
-
+                    output = self.variablesDict[output][1]
+                    
                 except:
                     output = self.calcFunc(output)
 
             print(output)
 
-    def calcFunc(self, line):
+    def calcFunc(self, data):
         try:
-            for char in range(len(line)):
+            for char in range(len(data)):
 
-                if line[char] == "(":
+                if data[char] == "(":
                     open = char
 
-                elif line[char] == ")":
+                elif data[char] == ")":
                     close = char
                     break
 
-            equation = line[open+1:close]
+            equation = data[open+1:close]
 
             equation = list(equation)
 
         except:
-            equation = line
+            equation = data
             
         try:
             nums = []
