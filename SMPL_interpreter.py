@@ -8,6 +8,8 @@ class evaluate:
             if line == "":
                 continue
             self.EvaluateLine(line)
+
+
     def getData(self, line):
         try:
             for i in range(len(line)):
@@ -23,6 +25,9 @@ class evaluate:
         except:
             print(f"error no brackets on data {data}")      
 
+    def Getinput(self, data):
+        userData = input(data)
+        return userData
 
     def EvaluateLine(self, line):
         command = line.split(" ")[0]
@@ -42,39 +47,43 @@ class evaluate:
 
     def variableAssignments(self, data):
 
-        data = data.split(" ")
-        variable = data[1]
-        dataType = data[2]
-        operation = data[5]
+        dataSplit = data.split(" ")
+        variable = dataSplit[1]
+        dataType = dataSplit[2]
+        operation = dataSplit[5]
+
 
         if "calc" in operation:
-            value = self.calcFunc(data[5])
-        
+            value = self.calcFunc(dataSplit[5])
+
+        elif operation == "skib_input":
+            value = input(self.getData(data))
+
         else:
-            value = data[5]
+            value = dataSplit[5]
 
         self.variablesDict[variable] = [dataType,value]
 
 
     def say_my_name(self, data):
-            string = False
-            if "\"" in data:
-                string = True
 
-            if string:
-                output = str(data)
-            
-            else:
-                output = str(data)
-                #check for variable
+        for i in range(list(data).count("{")):
 
-                try:
-                    output = self.variablesDict[output][1]
-                    
-                except:
-                    output = self.calcFunc(output)
+            for i in range(len(data)):
+                if data[i] == "{":
+                    variableOpen = i
+                
+                elif data[i] == "}":
+                    variableClose = i
+                    variableFound = True
+                    break
+        
+        if variableFound:
+            variable = self.variablesDict[data[variableOpen+1:variableClose]][1]
+            output = f"{data[:variableOpen]} {variable} {data[variableClose+1:]}"
+        
 
-            print(output)
+        print(output)
 
     def calcFunc(self, data):
         try:
