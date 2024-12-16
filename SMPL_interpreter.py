@@ -18,12 +18,12 @@ class evaluate:
 
                 elif line[i] == ")":
                     close = i
-
                     break
+
             return line[open+1:close]
 
         except:
-            print(f"error no brackets on data {data}")      
+            print(f"error no brackets on data {line}")      
 
     def Getinput(self, data):
         userData = input(data)
@@ -66,10 +66,11 @@ class evaluate:
 
 
     def say_my_name(self, data):
-
-        for i in range(list(data).count("{")):
+        try:
 
             for i in range(len(data)):
+                variableFound = False
+
                 if data[i] == "{":
                     variableOpen = i
                 
@@ -77,13 +78,23 @@ class evaluate:
                     variableClose = i
                     variableFound = True
                     break
-        
-        if variableFound:
-            variable = self.variablesDict[data[variableOpen+1:variableClose]][1]
-            output = f"{data[:variableOpen]} {variable} {data[variableClose+1:]}"
-        
+            
+            if variableFound and "calc" in data:
+                print("calc found")
+                variable = self.calcFunc(data[variableOpen+1:variableClose])
+                output = data.replace(("{"+data[variableOpen+1:variableClose]+"}"), str(variable))
 
-        print(output)
+            elif variableFound:
+                variable = self.variablesDict[data[variableOpen+1:variableClose]][1]
+                output = data.replace(("{"+data[variableOpen+1:variableClose]+"}"), variable)
+
+            else:
+                output = data
+
+            print(output)
+
+        except Exception as e:
+            print(f"*** sumting wong in say_my_name = {e} ***")
 
     def calcFunc(self, data):
         try:
