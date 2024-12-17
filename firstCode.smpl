@@ -8,5 +8,5 @@ say_my_name (you are {age} i think that is a cool age)
 say_my_name (Calc test below:)
 say_my_name (4+6 = {calc(4+6*2)})
 
-say_my_name (age in 20 years = {age + 20})
+say_my_name (age in 20 years = {calc(age + 20)})
 

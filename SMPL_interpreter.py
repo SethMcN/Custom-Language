@@ -81,8 +81,9 @@ class evaluate:
                     break
             
             if variableFound and "calc" in data:
-                print("calc found")
+
                 variable = self.calcFunc(data[variableOpen+1:variableClose])
+                print(variable)
                 output = data.replace(("{"+data[variableOpen+1:variableClose]+"}"), str(variable))
 
             elif variableFound:
@@ -112,19 +113,22 @@ class evaluate:
 
             equation = list(equation)
 
-            for index,variable,data in enumerate(self.variablesDict.items()):
-                if variable in equation:
-                    equation = equation[](variable, self.variablesDict[variable][1])
 
         except:
             equation = data
             
         try:
             nums = []
+
             num = ""
             for i in range(len(equation)):
-                if equation[i].isdigit():
+
+                if equation[i].isdigit() or equation[i].isalpha():
                     num += (equation[i])
+                
+                elif equation[i] == " ":    
+                    continue
+
                 else:
                     nums.append(num)
                     nums.append(equation[i])
@@ -132,6 +136,11 @@ class evaluate:
             
             nums.append(num)
 
+            for val in range(len(nums)):
+                if nums[val] in self.variablesDict.keys():
+                    equation[val] = self.variablesDict[val]
+
+            print("IT do here")
 
             result = int(nums[0])
             for i in range(len(nums)):
@@ -143,12 +152,13 @@ class evaluate:
                     result *= int(nums[i+1])
                 elif nums[i] == "/":
                     result /= int(nums[i+1])
-                
 
+            print("reault =",result)
             return result
 
-        except:
-            print("sumting wong in calc") 
+        except Exception as e:
+            print("sumting wong in calc error =",e) 
+            return "error"
 
 
     
