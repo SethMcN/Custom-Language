@@ -1,12 +1,20 @@
 #include <stdio.h>
 #include <string.h>
+
+int ListComp(){
+    
+    return 1;
+}
+
+
+
 int main()
 {
     FILE *fptr;
     fptr = fopen("firstCode.smpl", "r");
     if (fptr == NULL)
     {
-        printf("Error! File not found\n");
+        printf("Error! File not found\n");  
         return 0;
     }
 
@@ -23,8 +31,8 @@ int main()
         else{
             printf("%s", line);
             char *result = strstr(line, "say_my_name");
-
-        }
+  
+            printf("Hello, my name is %s\n", result);
     }
     return 0;
-}
+}}
