@@ -1,12 +1,3 @@
-arr name be str = skib_input (what is your name?: )
-
-arr age be str = skib_input (how old are you?: )
-
-say_my_name (Hi {name} i think that is a cool name my name is also {name})
-say_my_name (you are {age} i think that is a cool age)
-
-say_my_name (Calc test below:)
-say_my_name (4+6 = {calc(4+6*2)})
-
-say_my_name (age in 20 years = {calc(age + 20)})
+shout("Ahoy, World!")
+shout ("I love C")
 
