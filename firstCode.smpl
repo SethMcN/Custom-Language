@@ -1,3 +1,29 @@
-shout("Ahoy, World!")
-shout ("I love C")
+BTW This is a comment 
 
+
+BTW these are some standard tests:
+
+shout("Ahoy, World!")
+shout("I love C")
+shout("I Love C (sharp)")
+
+
+BTW these are to test how the interpreter deals with spaces:
+
+shout(  "Ahoy, World!"      )
+shout    (  "I love C  ( Sharp   )   "   )
+
+
+BTW these are some random tests:
+
+shout()
+shout("")
+
+BTW these are to test arithmetic outputs:
+
+shout(1+1)
+shout(10-5)
+shout(10*2)
+shout(100/2)
+
+BTW these are to cause errors:
